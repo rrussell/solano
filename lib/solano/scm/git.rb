@@ -186,7 +186,7 @@ module Solano
       FileUtils.rm_f(file) if file && File.exists?(file)
     end
 
-    def create_patch(session_id, options={})
+    def create_patch(session_id, snapshot_commit, options={})
       api = options[:api]
       snapshot_commit = options[:commit]
       if "#{snapshot_commit}" == `git rev-parse HEAD`.to_s.strip then
@@ -221,7 +221,8 @@ module Solano
 
         args = {  :session_id => session_id,
                   :sha1 => file_sha1,
-                  :size => file_size,}
+                  :size => file_size,
+                  :snapshot_commit => snapshot_commit}
         api.upload_session_patch(args)
       else
         say Text::Warning::EMPTY_PATCH

@@ -172,7 +172,7 @@ module Solano
               snapshot_commit = @scm.get_snap_id
             end
             say Text::Process::SNAPSHOT_COMMIT % snapshot_commit
-            @scm.create_patch(session_id, {:api => @solano_api, :commit => snapshot_commit})
+            @scm.create_patch(session_id, snapshot_commit, {:api => @solano_api, :commit => snapshot_commit})
           else
             say Text::Process::FORCED_SNAPSHOT
             res = @scm.create_snapshot(session_id, {:api => @solano_api, :force => true})
